@@ -66,4 +66,11 @@ ipch/
 *_p.c
 *.iobj
 *.ipdb
+
+# Visual studio ignore files
+.vs
+x64/Debug/
+x64/Release/
+
+# Added by github desktop
 Untrack-GitIgnored.ps1

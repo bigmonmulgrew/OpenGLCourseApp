@@ -31,5 +31,49 @@
 *.out
 *.app
 
-# VS build files
+# Debug files
+*.pdb
+*.ilk
+
+# Build folders
+bin/
+obj/
+build/
+Debug/
+Release/
+
+# Visual Studio files
 .vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.suo
+*.user
+*.userprefs
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+ipch/
+*.tlog
+*.log
+*.vspscc
+*_i.c
+*_p.c
+*.iobj
+*.ipdb
+
+# OS generated files #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# CMake
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+Makefile

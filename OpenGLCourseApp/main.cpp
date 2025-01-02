@@ -4,13 +4,15 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <glm/mat4x4.hpp>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // Window dimensions 
 const GLint WIDTH = 800, HEIGHT = 600;
 
-GLuint VAO, VBO, shader, uniformXMove;
+GLuint VAO, VBO, shader, uniformModel;
 
 bool direction = true;
 float triOffset = 0.0f;
@@ -23,11 +25,11 @@ static const char* vShader = "                                  \n\
                                                                 \n\
 layout (location = 0) in vec3 pos;                              \n\
                                                                 \n\
-uniform float xMove;                                            \n\
+uniform mat4 model;                                             \n\
                                                                 \n\
 void main()                                                     \n\
 {                                                               \n\
-    gl_Position = vec4(0.4 * pos.x + xMove, 0.4 * pos.y, pos.z, 1.0);   \n\
+    gl_Position = model * vec4(0.4 * pos.x, 0.4 * pos.y, pos.z, 1.0);   \n\
 }";
 
 // Fragment shader
@@ -126,7 +128,7 @@ void CompileShaders()
         return;
     }
 
-    uniformXMove = glGetUniformLocation(shader, "xMove");
+    uniformModel = glGetUniformLocation(shader, "model");
 }
 int main() 
 {
@@ -204,7 +206,10 @@ int main()
 
         glUseProgram(shader);
 
-        glUniform1f(uniformXMove, triOffset);
+        glm::mat4 model(1.0f);
+        model = glm::translate(model, glm::vec3(triOffset, 0.0f, 0.0f));
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 
         glBindVertexArray(VAO);
 

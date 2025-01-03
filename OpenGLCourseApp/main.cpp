@@ -22,7 +22,7 @@ const float toRadians = 3.14159265f / 180.0f;
 Window mainWindow;
 
 std::vector<Mesh*> meshList;
-std::vector<Shader*> shaderList;
+std::vector<Shader> shaderList;
 Camera camera;
 
 GLfloat deltaTime = 0.0f;
@@ -61,9 +61,9 @@ void createObject()
 
 void createShaders()
 {
-	Shader* shader1 = new Shader();
+	Shader *shader1 = new Shader();
 	shader1->createFromFiles(vShader, fShader);
-	shaderList.push_back(shader1);
+	shaderList.push_back(*shader1);
 }
 
 int main()
@@ -104,16 +104,16 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		shaderList[0]->UseShader();
-		uniformModel = shaderList[0]->getModelLocation();
-		uniformProjection = shaderList[0]->getProjectionLocation();
-		uniformView = shaderList[0]->getViewLocation();
+		shaderList[0].UseShader();
+		uniformModel = shaderList[0].getModelLocation();
+		uniformProjection = shaderList[0].getProjectionLocation();
+		uniformView = shaderList[0].getViewLocation();
 
 		// Object 1
 		glm::mat4 model(1.0f);
 
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f));
-		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 		//model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));

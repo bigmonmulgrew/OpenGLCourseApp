@@ -12,10 +12,14 @@ public:
 
 	int Initialise();
 
-	GLfloat GetBufferWidth() { return bufferWidth; }
-	GLfloat GetBufferHeight() { return bufferHeight; }
+	GLfloat getBufferWidth() { return bufferWidth; }
+	GLfloat getBufferHeight() { return bufferHeight; }
 
-	bool GetShouldClose() { return glfwWindowShouldClose(mainWindow); }
+	bool getShouldClose() { return glfwWindowShouldClose(mainWindow); }
+
+	bool* getKeys() { return keys; }
+	GLfloat getXChange();
+	GLfloat getYChange();
 
 	void SwapBuffers() { glfwSwapBuffers(mainWindow); }
 	~Window();
@@ -25,5 +29,17 @@ private:
 
 	GLint width, height;
 	GLint bufferWidth, bufferHeight;
+
+	// Key inputs
+	bool keys[1024];
+
+	// Mouse movement
+	GLfloat lastX, lastY, xChange, yChange;
+	bool mouseFirstMoved;
+
+	void createCallbacks();
+
+	static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
+	static void handleMouse(GLFWwindow* window, double xPos, double yPos);
 };
 
